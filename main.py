@@ -19,9 +19,7 @@ async def gitlab_hook_handler(request: Request):
 def is_new_mr(data: GitlabHook) -> bool:
     if data.event_type != "merge_request":
         return False
-    if data.object_attributes.action == "open":
-        return True
-    return False
+    return data.object_attributes.action == "open"
 
 
 async def process_new_mr(data: GitlabHook) -> None:
